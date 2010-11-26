@@ -6,22 +6,20 @@ h3. Usage
 
 # Add the plugin to your pom.xml
 
-@
-      <build>
-      ...
-        <plugin>
-          <groupId>org.mirah.maven</groupId>
-          <artifactId>maven-mirah-plugin</artifactId>
-          <executions>
-            <execution>
-              <phase>compile</phase>
-              <goals><goal>compile</goal></goals>
-            </execution>
-          </executions>
-        </plugin>
-      ...
-      </build>
-@
+@<build>
+...
+ <plugin>
+    <groupId>org.mirah.maven</groupId>
+    <artifactId>maven-mirah-plugin</artifactId>
+    <executions>
+      <execution>
+        <phase>compile</phase>
+        <goals><goal>compile</goal></goals>
+      </execution>
+    </executions>
+  </plugin>
+...
+</build>@
 
 # Execute @mvn compile@
 
@@ -30,15 +28,13 @@ h3. Configuration options
 Those are the options that can be modified for this plugin, this example shows the
 default ones so we just need to modify them into the plugin declaration:
 
-@
-      <plugin>
-      ...
-        <configuration>
-          <sourceDirectory>src/main/mirah</sourceDirectory>
-          <outputDirectory>target/classes</outputDirectory>
-          <bytecode>true</bytecode>
-          <verbose>false</verbose>
-      ...
-      </plugin>
-@
+@<plugin>
+...
+  <configuration>
+    <sourceDirectory>src/main/mirah</sourceDirectory>
+    <outputDirectory>target/classes</outputDirectory>
+    <bytecode>true</bytecode>
+    <verbose>false</verbose>
+...
+</plugin>@
 
