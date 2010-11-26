@@ -6,20 +6,20 @@ h3. Usage
 
 # Add the plugin to your pom.xml
 
-@<build>
+@&lt;build&gt;
 ...
- <plugin>
-    <groupId>org.mirah.maven</groupId>
-    <artifactId>maven-mirah-plugin</artifactId>
-    <executions>
-      <execution>
-        <phase>compile</phase>
-        <goals><goal>compile</goal></goals>
-      </execution>
-    </executions>
-  </plugin>
+ &lt;plugin&gt;
+    &lt;groupId&gt;org.mirah.maven&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-mirah-plugin&lt;/artifactId&gt;
+    &lt;executions&gt;
+      &lt;execution&gt;
+        &lt;phase&gt;compile&lt;/phase&gt;
+        &lt;goals&gt;&lt;goal&gt;compile&lt;/goal&gt;&lt;/goals&gt;
+      &lt;/execution&gt;
+    &lt;/executions&gt;
+  &lt;/plugin&gt;
 ...
-</build>@
+&lt;/build&gt;@
 
 # Execute @mvn compile@
 
@@ -28,13 +28,13 @@ h3. Configuration options
 Those are the options that can be modified for this plugin, this example shows the
 default ones so we just need to modify them into the plugin declaration:
 
-@<plugin>
+@&lt;plugin&gt;
 ...
-  <configuration>
-    <sourceDirectory>src/main/mirah</sourceDirectory>
-    <outputDirectory>target/classes</outputDirectory>
-    <bytecode>true</bytecode>
-    <verbose>false</verbose>
+  &lt;configuration&gt;
+    &lt;sourceDirectory&gt;src/main/mirah&lt;/sourceDirectory&gt;
+    &lt;outputDirectory&gt;target/classes&lt;/outputDirectory&gt;
+    &lt;bytecode&gt;true&lt;/bytecode&gt;
+    &lt;verbose&gt;false&lt;/verbose&gt;
 ...
-</plugin>@
+&lt;/plugin&gt;@
 
