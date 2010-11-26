@@ -6,7 +6,7 @@ h3. Usage
 
 # Add the plugin to your pom.xml
 
-@&lt;build&gt;
+&lt;build&gt;
 ...
  &lt;plugin&gt;
     &lt;groupId&gt;org.mirah.maven&lt;/groupId&gt;
@@ -19,7 +19,7 @@ h3. Usage
     &lt;/executions&gt;
   &lt;/plugin&gt;
 ...
-&lt;/build&gt;@
+&lt;/build&gt;
 
 # Execute @mvn compile@
 
@@ -28,7 +28,7 @@ h3. Configuration options
 Those are the options that can be modified for this plugin, this example shows the
 default ones so we just need to modify them into the plugin declaration:
 
-@&lt;plugin&gt;
+&lt;plugin&gt;
 ...
   &lt;configuration&gt;
     &lt;sourceDirectory&gt;src/main/mirah&lt;/sourceDirectory&gt;
@@ -36,5 +36,5 @@ default ones so we just need to modify them into the plugin declaration:
     &lt;bytecode&gt;true&lt;/bytecode&gt;
     &lt;verbose&gt;false&lt;/verbose&gt;
 ...
-&lt;/plugin&gt;@
+&lt;/plugin&gt;
 
