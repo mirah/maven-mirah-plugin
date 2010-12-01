@@ -2,17 +2,41 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>5</version>
+  </parent>q
+
   <groupId>org.mirah.maven</groupId>
   <artifactId>maven-mirah-plugin</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
 
-  <name>maven-mirah-plugin Maven Plugin</name>
-  <url>http://maven.apache.org</url>
+  <name>maven-mirah-plugin</name>
+  <url>http://http://github.com/calavera/maven-mirah-compiler</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+  <licenses>
+    <license>
+      <name>The MIT License</name>
+      <url>http://www.opensource.org/licenses/mit-license.php</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>calavera</id>
+      <name>David Calavera</name>
+      <email>calavera@apache.org</email>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:git://github.com/calavera/maven-mirah-plugin.git</connection>
+    <developerConnection>git@github.com:calavera/maven-mirah-plugin.git</developerConnection>
+    <url>http://github.com/calavera/maven-mirah-plugin</url>
+  </scm>
 
   <dependencies>
     <dependency>
