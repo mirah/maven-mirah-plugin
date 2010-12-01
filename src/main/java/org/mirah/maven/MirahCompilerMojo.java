@@ -29,11 +29,11 @@ import java.util.List;
 import org.mirah.MirahCommand;
 
 /**
- * Goal which touches a timestamp file.
+ * Goal which compiles Mirah source files
  *
  * @goal compile
- *
  * @phase compile
+ * @requiresDependencyResolution compile
  */
 public class MirahCompilerMojo extends AbstractMojo {
     /**
