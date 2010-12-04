@@ -15,10 +15,11 @@ import org.codehaus.plexus.util.StringUtils;
 import org.mirah.MirahCommand;
 
 /**
- * Goal which compiles Mirah source files
+ * Compiles Mirah source files
  *
  * @goal compile
  * @phase compile
+ * @threadSafe
  * @requiresDependencyResolution compile
  */
 public class MirahCompilerMojo extends AbstractMojo {
@@ -30,6 +31,14 @@ public class MirahCompilerMojo extends AbstractMojo {
      * @readonly
      */
     private List<String> classpathElements;
+    /**
+     * The source directories containing the sources to be compiled.
+     *
+     * @parameter default-value="${project.compileSourceRoots}"
+     * @required
+     * @readonly
+     */
+    private List<String> compileSourceRoots;
     /**
      * Classes destination directory
      * @parameter expression="${project.build.outputDirectory}"
@@ -52,7 +61,16 @@ public class MirahCompilerMojo extends AbstractMojo {
     private boolean verbose;
 
     public void execute() throws MojoExecutionException {
-        if ( !outputDirectory.exists() ) {
+       if (bytecode) {
+          executeMirahCompiler(outputDirectory.getAbsolutePath());
+       } else {
+          String javaSourceRoot = compileSourceRoots.get(0);
+          executeMirahCompiler(javaSourceRoot);
+       }
+    }
+
+    private void executeMirahCompiler(String output) throws MojoExecutionException {
+       if (!outputDirectory.exists()) {
             outputDirectory.mkdirs();
         }
 
@@ -63,7 +81,7 @@ public class MirahCompilerMojo extends AbstractMojo {
           arguments.add("-V");
 
         arguments.add("-d");
-        arguments.add(outputDirectory.getAbsolutePath());
+        arguments.add(output);
 
         try {
             arguments.add("-c");
