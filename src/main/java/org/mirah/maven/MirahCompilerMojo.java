@@ -2,7 +2,6 @@ package org.mirah.maven;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.project.MavenProject;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -20,15 +19,17 @@ import org.mirah.MirahCommand;
  *
  * @goal compile
  * @phase compile
- * @requiresDependencyResolution
+ * @requiresDependencyResolution compile
  */
 public class MirahCompilerMojo extends AbstractMojo {
     /**
-     * @parameter expression="${project}"
+     * Project classpath.
+     *
+     * @parameter default-value="${project.compileClasspathElements}"
      * @required
      * @readonly
      */
-    private MavenProject project;
+    private List<String> classpathElements;
     /**
      * Classes destination directory
      * @parameter expression="${project.build.outputDirectory}"
@@ -65,12 +66,8 @@ public class MirahCompilerMojo extends AbstractMojo {
         arguments.add(outputDirectory.getAbsolutePath());
 
         try {
-            List<String> compileClasspath = project.getCompileClasspathElements();
-            compileClasspath.addAll(project.getRuntimeClasspathElements());
-            String classpath = StringUtils.join(compileClasspath.iterator(), File.pathSeparator);
-
             arguments.add("-c");
-            arguments.add(classpath);
+            arguments.add(StringUtils.join(classpathElements.iterator(), File.pathSeparator));
 
             arguments.add(sourceDirectory.getAbsolutePath());
 
