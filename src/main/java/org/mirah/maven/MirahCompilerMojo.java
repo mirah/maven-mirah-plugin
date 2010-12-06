@@ -1,6 +1,8 @@
 package org.mirah.maven;
 
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.CompilationFailureException;
+import org.apache.maven.plugin.CompilerMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
 import java.io.File;
@@ -17,12 +19,13 @@ import org.mirah.MirahCommand;
 /**
  * Compiles Mirah source files
  *
+ * @extendsPlugin compiler
  * @goal compile
  * @phase compile
  * @threadSafe
  * @requiresDependencyResolution compile
  */
-public class MirahCompilerMojo extends AbstractMojo {
+public class MirahCompilerMojo extends CompilerMojo {
     /**
      * Project classpath.
      *
@@ -60,12 +63,14 @@ public class MirahCompilerMojo extends AbstractMojo {
      */
     private boolean verbose;
 
-    public void execute() throws MojoExecutionException {
+    public void execute() throws MojoExecutionException, CompilationFailureException {
        if (bytecode) {
+          super.execute();
           executeMirahCompiler(outputDirectory.getAbsolutePath());
        } else {
           String javaSourceRoot = compileSourceRoots.get(0);
           executeMirahCompiler(javaSourceRoot);
+          super.execute();
        }
     }
 
