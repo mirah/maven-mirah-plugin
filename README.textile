@@ -36,18 +36,14 @@ default ones so we just need to modify them into the plugin declaration:
   <configuration>
     <sourceDirectory>src/main/mirah</sourceDirectory>
     <outputDirectory>target/classes</outputDirectory>
-    <bytecode>true</bytecode>
     <verbose>false</verbose>
 ...
 </plugin>
 </pre>
 
-h3. Compile java and mirah source at once
+h3. Generating java code
 
-This plugin extends maven-compiler-plugin so it compiles mirah and java code
-at once. We don't need to add the compiler plugin to our build.
-
-If the option @bytecode@ is set to @true@, by default, the plugin compiles
-the java code before compiling the mirah code, but if we set that option to
-@false@ the plugin generates the java source code from the mirah code first
-and the compiles all the java source code.
+If you want the plugin to generate java source files from mirah files instead
+of compiling your mirah code directly to bytecode, use the @generate-sources@
+phase instead. The resulting java source files will then be compiled by the
+normal maven compiler.
