@@ -33,6 +33,11 @@
       <name>David Calavera</name>
       <email>calavera@apache.org</email>
     </developer>
+    <developer>
+      <id>viking</id>
+      <name>Jeremy Stephens</name>
+      <email>viking@pillageandplunder.net</email>
+    </developer>
   </developers>
 
   <scm>
