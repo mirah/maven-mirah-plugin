@@ -37,9 +37,9 @@
   </developers>
 
   <scm>
-    <connection>scm:git:git://github.com/calavera/maven-mirah-plugin.git</connection>
-    <developerConnection>git@github.com:calavera/maven-mirah-plugin.git</developerConnection>
-    <url>http://github.com/calavera/maven-mirah-plugin</url>
+    <connection>scm:git:git://github.com/mirah/maven-mirah-plugin.git</connection>
+    <developerConnection>git@github.com:mirah/maven-mirah-plugin.git</developerConnection>
+    <url>http://github.com/mirah/maven-mirah-plugin</url>
   </scm>
 
   <dependencies>
@@ -61,7 +61,7 @@
     <dependency>
       <groupId>org.mirah</groupId>
       <artifactId>mirah-complete</artifactId>
-      <version>0.5.0-SNAPSHOT</version>
+      <version>0.0.7</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.plugins</groupId>
