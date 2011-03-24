@@ -38,7 +38,7 @@
 
   <scm>
     <connection>scm:git:git://github.com/mirah/maven-mirah-plugin.git</connection>
-    <developerConnection>git@github.com:mirah/maven-mirah-plugin.git</developerConnection>
+    <developerConnection>scm:git:git@github.com:mirah/maven-mirah-plugin.git</developerConnection>
     <url>http://github.com/mirah/maven-mirah-plugin</url>
   </scm>
 
