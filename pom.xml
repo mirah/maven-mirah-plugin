@@ -13,7 +13,7 @@
 
   <groupId>org.mirah.maven</groupId>
   <artifactId>maven-mirah-plugin</artifactId>
-  <version>1.0</version>
+  <version>1.1-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
 
   <name>maven-mirah-plugin</name>
