@@ -12,8 +12,15 @@ import org.apache.maven.plugin.MojoExecutionException;
  * @requiresDependencyResolution compile
  */
 public class MirahSourcesMojo extends AbstractMirahMojo {
+    /**
+     * @parameter default-value="${project.build.directory}/generated-sources/mirah"
+     * @required
+     * @readonly
+     */
+    private String generatedSrc;
+
     public void execute() throws MojoExecutionException, CompilationFailureException {
-        String javaSourceRoot = compileSourceRoots.get(0);
-        executeMirahCompiler(javaSourceRoot, false);
+        compileSourceRoots.add(generatedSrc);
+        executeMirahCompiler(generatedSrc, false);
     }
 }
