@@ -15,9 +15,9 @@
   <artifactId>maven-mirah-plugin</artifactId>
   <version>1.1-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
-  
+
   <name>maven-mirah-plugin</name>
-  <url>http://http://github.com/mirah/maven-mirah-compiler</url>
+  <url>https://github.com/mirah/maven-mirah-compiler</url>
 
   <licenses>
     <license>
@@ -43,7 +43,7 @@
   <scm>
     <connection>scm:git:git://github.com/mirah/maven-mirah-plugin.git</connection>
     <developerConnection>scm:git:git@github.com:mirah/maven-mirah-plugin.git</developerConnection>
-    <url>http://github.com/mirah/maven-mirah-plugin</url>
+    <url>https://github.com/mirah/maven-mirah-plugin</url>
   </scm>
 
   <dependencies>
