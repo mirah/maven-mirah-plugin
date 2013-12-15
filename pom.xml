@@ -15,9 +15,9 @@
   <artifactId>maven-mirah-plugin</artifactId>
   <version>1.1-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
-
+  
   <name>maven-mirah-plugin</name>
-  <url>http://http://github.com/calavera/maven-mirah-compiler</url>
+  <url>http://http://github.com/mirah/maven-mirah-compiler</url>
 
   <licenses>
     <license>
@@ -65,7 +65,7 @@
     <dependency>
       <groupId>org.mirah</groupId>
       <artifactId>mirah-complete</artifactId>
-      <version>0.0.12</version>
+      <version>0.1.1</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.plugins</groupId>
@@ -78,7 +78,6 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
         <version>2.5.1</version>
         <configuration>
@@ -94,7 +93,6 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>2.3.2</version>
       </plugin>
