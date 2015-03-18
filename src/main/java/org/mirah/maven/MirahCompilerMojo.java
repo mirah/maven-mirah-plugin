@@ -13,6 +13,6 @@ import org.apache.maven.plugin.MojoExecutionException;
  */
 public class MirahCompilerMojo extends AbstractMirahMojo {
    public void execute() throws MojoExecutionException, CompilationFailureException {
-       executeMirahCompiler(outputDirectory, true);
+	   executeMirahCompiler(outputDirectory, sourceDirectory, verbose, true);
    }
 }

@@ -5,26 +5,32 @@ import org.apache.maven.plugin.TestCompilerMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.codehaus.plexus.util.StringUtils;
 
-import org.mirah.MirahCommand;
+import org.mirah.tool.Mirahc;
 
 /**
  * Compiles Mirah source files
  *
- * @extendsPlugin compiler
+ * @phase test-compile
  * @goal testCompile
- * @phase testCompile
- * @threadSafe
  * @requiresDependencyResolution test
+ * @threadSafe
  */
-public class MirahTestCompilerMojo extends TestCompilerMojo {
+public class MirahTestCompilerMojo extends AbstractMirahMojo {
+
+	/**
+	 * Set this to 'true' to bypass unit tests entirely.
+	 * Its use is NOT RECOMMENDED, but quite convenient on occasion.
+	 *
+	 * @parameter expression="${maven.test.skip}"
+	 */
+	private boolean skip;
+
     /**
      * Project classpath.
      *
@@ -45,57 +51,29 @@ public class MirahTestCompilerMojo extends TestCompilerMojo {
      * Classes destination directory
      * @parameter expression="${project.build.testOutputDirectory}"
      */
-    private File outputDirectory;
+    private String outputDirectory;
     /**
      * Classes source directory
-     * @parameter expression="src/test/mirah"
+     * @parameter expression="${basedir}/src/test/mirah"
      */
-    private File sourceDirectory;
-    /**
-     * Whether produce bytecode or java source
-     * @parameter bytecode, default true
-     */
-    private boolean bytecode = true;
+    private String sourceDirectory;
+
     /**
      * Show log
      * @parameter verbose, default false
      */
     private boolean verbose;
 
+	protected List<String> getClassPathElements(){
+		return classpathElements;
+	}
+
     public void execute() throws MojoExecutionException, CompilationFailureException {
-       if (bytecode) {
-          super.execute();
-          executeMirahCompiler(outputDirectory.getAbsolutePath());
-       } else {
-          String javaSourceRoot = compileSourceRoots.get(0);
-          executeMirahCompiler(javaSourceRoot);
-          super.execute();
-       }
+	    if(skip){
+		    getLog().info("skiping mirah tests compilation");
+	    } else {
+		    executeMirahCompiler(outputDirectory, sourceDirectory, verbose, true);
+	    }
     }
 
-    private void executeMirahCompiler(String output) throws MojoExecutionException {
-       if (!outputDirectory.exists()) {
-            outputDirectory.mkdirs();
-        }
-
-        List arguments = new ArrayList();
-        if (!bytecode)
-          arguments.add("--java");
-        if (verbose)
-          arguments.add("-V");
-
-        arguments.add("-d");
-        arguments.add(output);
-
-        try {
-            arguments.add("-c");
-            arguments.add(StringUtils.join(classpathElements.iterator(), File.pathSeparator));
-
-            arguments.add(sourceDirectory.getAbsolutePath());
-
-            MirahCommand.compile(arguments);
-        } catch (Exception e) {
-            throw new MojoExecutionException(e.getMessage(), e);
-        }
-    }
 }

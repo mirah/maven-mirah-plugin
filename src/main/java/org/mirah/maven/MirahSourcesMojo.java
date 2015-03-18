@@ -21,6 +21,6 @@ public class MirahSourcesMojo extends AbstractMirahMojo {
 
     public void execute() throws MojoExecutionException, CompilationFailureException {
         compileSourceRoots.add(generatedSrc);
-        executeMirahCompiler(generatedSrc, false);
+        executeMirahCompiler(generatedSrc, outputDirectory, verbose, false);
     }
 }
