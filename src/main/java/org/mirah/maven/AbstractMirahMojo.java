@@ -46,10 +46,18 @@ public abstract class AbstractMirahMojo extends CompilerMojo {
      */
     protected boolean verbose;
 
-	protected List<String> getClassPathElements(){
-		return classpathElements;
-	}
-    protected void executeMirahCompiler(String output, String sourceDirectory, boolean verbose, boolean bytecode) throws MojoExecutionException {
+    /**
+     * Show log
+     *
+     * @parameter newClosures, default false
+     */
+    protected boolean newClosures;
+
+    protected List<String> getClassPathElements() {
+        return classpathElements;
+    }
+
+    protected void executeMirahCompiler(String output, String sourceDirectory, boolean verbose, boolean newClosures, boolean bytecode) throws MojoExecutionException {
         File d = new File(output);
         if (!d.exists()) {
             d.mkdirs();
@@ -68,24 +76,27 @@ public abstract class AbstractMirahMojo extends CompilerMojo {
         arguments.add("-cp");
         arguments.add(StringUtils.join(getClassPathElements().iterator(), File.pathSeparator));
 
+        if (newClosures) {
+            arguments.add("-new-closures");
+        }
 
-	    File file = new File(sourceDirectory);
-	    if(!file.exists()){
-		    getLog().info("Source directory: " + file.getAbsolutePath() + " does not exists or not accessible. Skip mirahc.");
-	    } else {
-		    arguments.add(sourceDirectory);
-		    mojoCompile(arguments);
-	    }
+        File file = new File(sourceDirectory);
+        if (!file.exists()) {
+            getLog().info("Source directory: " + file.getAbsolutePath() + " does not exists or not accessible. Skip mirahc.");
+        } else {
+            arguments.add(sourceDirectory);
+            mojoCompile(arguments);
+        }
 
     }
 
-	public static void mojoCompile(List<String> arguments) throws MojoExecutionException {
-		try {
-			Mirahc mirahc = new Mirahc();
-			int result = mirahc.compile(arguments.toArray(new String[arguments.size()]));
-			if(result != 0) throw new MojoExecutionException("Compilation failed with arguments: " + arguments);
-		} catch (Exception e) {
-			throw new MojoExecutionException(e.getMessage(), e);
-		}
-	}
+    public static void mojoCompile(List<String> arguments) throws MojoExecutionException {
+        try {
+            Mirahc mirahc = new Mirahc();
+            int result = mirahc.compile(arguments.toArray(new String[arguments.size()]));
+            if (result != 0) throw new MojoExecutionException("Compilation failed with arguments: " + arguments);
+        } catch (Exception e) {
+            throw new MojoExecutionException(e.getMessage(), e);
+        }
+    }
 }

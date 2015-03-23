@@ -23,13 +23,13 @@ import org.mirah.tool.Mirahc;
  */
 public class MirahTestCompilerMojo extends AbstractMirahMojo {
 
-	/**
-	 * Set this to 'true' to bypass unit tests entirely.
-	 * Its use is NOT RECOMMENDED, but quite convenient on occasion.
-	 *
-	 * @parameter expression="${maven.test.skip}"
-	 */
-	private boolean skip;
+    /**
+     * Set this to 'true' to bypass unit tests entirely.
+     * Its use is NOT RECOMMENDED, but quite convenient on occasion.
+     *
+     * @parameter expression="${maven.test.skip}"
+     */
+    private boolean skip;
 
     /**
      * Project classpath.
@@ -64,16 +64,23 @@ public class MirahTestCompilerMojo extends AbstractMirahMojo {
      */
     private boolean verbose;
 
-	protected List<String> getClassPathElements(){
-		return classpathElements;
-	}
+    /**
+     * Show log
+     *
+     * @parameter newClosures, default false
+     */
+    protected boolean newClosures;
+
+    protected List<String> getClassPathElements() {
+        return classpathElements;
+    }
 
     public void execute() throws MojoExecutionException, CompilationFailureException {
-	    if(skip){
-		    getLog().info("skiping mirah tests compilation");
-	    } else {
-		    executeMirahCompiler(outputDirectory, sourceDirectory, verbose, true);
-	    }
+        if (skip) {
+            getLog().info("skiping mirah tests compilation");
+        } else {
+            executeMirahCompiler(outputDirectory, sourceDirectory, verbose, newClosures, true);
+        }
     }
 
 }
