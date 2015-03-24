@@ -5,15 +5,13 @@ import org.apache.maven.plugin.CompilationFailureException;
 import org.apache.maven.plugin.MojoExecutionException;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 import java.util.List;
 import java.util.ArrayList;
 
 import org.codehaus.plexus.util.StringUtils;
 
-import org.mirah.MirahCommand;
+import org.mirah.tool.Mirahc;
 
 public abstract class AbstractMirahMojo extends CompilerMojo {
     /**
@@ -39,7 +37,7 @@ public abstract class AbstractMirahMojo extends CompilerMojo {
     protected String outputDirectory;
     /**
      * Classes source directory
-     * @parameter expression="src/main/mirah"
+     * @parameter expression="${basedir}/src/main/mirah"
      */
     protected String sourceDirectory;
     /**
@@ -48,7 +46,18 @@ public abstract class AbstractMirahMojo extends CompilerMojo {
      */
     protected boolean verbose;
 
-    protected void executeMirahCompiler(String output, boolean bytecode) throws MojoExecutionException {
+    /**
+     * Show log
+     *
+     * @parameter newClosures, default false
+     */
+    protected boolean newClosures;
+
+    protected List<String> getClassPathElements() {
+        return classpathElements;
+    }
+
+    protected void executeMirahCompiler(String output, String sourceDirectory, boolean verbose, boolean newClosures, boolean bytecode) throws MojoExecutionException {
         File d = new File(output);
         if (!d.exists()) {
             d.mkdirs();
@@ -60,19 +69,32 @@ public abstract class AbstractMirahMojo extends CompilerMojo {
         if (verbose)
             arguments.add("-V");
 
-        arguments.add("--cd");
-        arguments.add(sourceDirectory);
         arguments.add("-d");
         arguments.add(output);
 
         /* do I really need this? */
-        arguments.add("-c");
-        arguments.add(StringUtils.join(classpathElements.iterator(), File.pathSeparator));
+        arguments.add("-cp");
+        arguments.add(StringUtils.join(getClassPathElements().iterator(), File.pathSeparator));
 
-        arguments.add(".");
+        if (newClosures) {
+            arguments.add("-new-closures");
+        }
 
+        File file = new File(sourceDirectory);
+        if (!file.exists()) {
+            getLog().info("Source directory: " + file.getAbsolutePath() + " does not exists or not accessible. Skip mirahc.");
+        } else {
+            arguments.add(sourceDirectory);
+            mojoCompile(arguments);
+        }
+
+    }
+
+    public static void mojoCompile(List<String> arguments) throws MojoExecutionException {
         try {
-            MirahCommand.compile(arguments);
+            Mirahc mirahc = new Mirahc();
+            int result = mirahc.compile(arguments.toArray(new String[arguments.size()]));
+            if (result != 0) throw new MojoExecutionException("Compilation failed with arguments: " + arguments);
         } catch (Exception e) {
             throw new MojoExecutionException(e.getMessage(), e);
         }
